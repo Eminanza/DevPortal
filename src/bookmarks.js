@@ -1,17 +1,27 @@
+var React = require('react');
+var Bookmark = require('./bookmark.js').Bookmark;
+
 var Bookmarks = React.createClass({
   render: function() {
+    //Construct an arraw of rows based on the state of the component
+    var bookmarkRows = this.props.bookmarks.map(function(bookmark) {
+      return (
+        <Bookmark key={"book" + bookmark.id} name={bookmark.name} url={bookmark.url}/>
+      );
+    }.bind(this)
+    );
+
     return(
-      <table className="table" id="bookmarks">
+      <table className="table table-striped table-hover">
         <thead>
           <tr>
-          <th onClick={this.handleSymbolSort}>Symbol</th>
-          <th>Name</th>
-          <th>Url</th>
-          <th></th>
+            <th>Name</th>
+            <th>Url</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {Bookmark}
+          {bookmarkRows}
         </tbody>
       </table>
     );

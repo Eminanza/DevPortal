@@ -1,0 +1,70 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "description": "Global"
+    },
+    {
+      "id": 2,
+      "description": "Development"
+    },
+    {
+      "id": 3,
+      "description": "Documents"
+    },
+    {
+      "id": 4,
+      "description": "Tools"
+    }
+  ],
+  "bookmarks": [
+    {
+      "id": 1,
+      "name": "Restaurant Marais",
+      "url": "http://b2e.group.echonet/pid59561/.html",
+      "category": 1
+    },
+    {
+      "id": 2,
+      "name": "Clarity v13",
+      "url": "https://i-net1026a-prod.be.fortis.bank:51129/niku/nu",
+      "category": 1
+    },
+    {
+      "id": 3,
+      "name": "Installation Engine",
+      "url": "http://spdw0161:52126",
+      "category": 2
+    },
+    {
+      "id": 4,
+      "name": "Sametime",
+      "url": "https://webchat.group.echonet/stwebclient/index.jsp",
+      "category": 2
+    },
+    {
+      "id": 5,
+      "name": "Holiday sheet",
+      "url": "https://team-collab.sp.e-employee.net/sites/ITSDSDistribdm/DBRM%20Private/Holiday%20Sheet%202015/Holidays2015.xlsm",
+      "category": 3
+    },
+    {
+      "id": 6,
+      "name": "Sharepoint site",
+      "url": "https://team-collab.sp.e-employee.net/sites/ITSDSDistribdm/default.aspx",
+      "category": 3
+    },
+    {
+      "id": 7,
+      "name": "HR My Absences",
+      "url": "https://i-net800.be.fortis.bank/PLABJ01/PLAB/ssw/fortis/main.htm",
+      "category": 4
+    },
+    {
+      "id": 8,
+      "name": "HR My Time Management",
+      "url": "https://i-net800.be.fortis.bank/PLETJ01/PLET/apps/timeClockin/main.htm",
+      "category": 4
+    }
+  ]
+}

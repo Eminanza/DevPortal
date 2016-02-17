@@ -4,19 +4,21 @@ var React = require('react');
 var NavBar = React.createClass({
   render: function() {
     return (
-      <nav className="container-fluid">
-        <div className="navbar navbar-inverse">
-          <a className="navbar-brand" href="#"><span className="brand">DevPortal</span> Stocks</a>
-          <ul className="nav navbar-nav">
-            <li className="active">
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">Link</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+        <nav className="navbar navbar-inverse navbar-fixed-top">
+          <div className="container-fluid">
+            <a className="navbar-brand" href="#"><span className="brand">DevPortal</span></a>
+            <ul className="nav navbar-nav">
+              <li className="active">
+                <a href="http://b2e.group.echonet">Home</a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li className="">
+                <a href="#">About</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
     );
   }
 });

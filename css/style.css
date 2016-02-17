@@ -1,0 +1,24 @@
+/*----------------*/
+/*OWN CLASSES     */
+/*----------------*/
+
+.brand {
+  color : #7081FF !important;
+}
+
+.nowrap {
+  white-space:nowrap;
+}
+
+
+/*----------------*/
+/*BOOTSTRAP CUSTOM*/
+/*----------------*/
+
+.navbar-right-marged {
+  margin-right : 0px !important;
+}
+
+.under-navbar {
+  margin-top : 60px;
+}
