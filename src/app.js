@@ -8,7 +8,7 @@ var ModalEditBookmark = require('./modalEditBookmark.js').ModalEditBookmark;
 
 var App = React.createClass({
   getInitialState: function() {
-    return { bookmarks: [], categories: [] };
+    return { bookmarks: [], categories: [], currentBookmark: {} };
   },
 
   loadBookmarks : function() {
@@ -35,17 +35,47 @@ var App = React.createClass({
     // setInterval(this.loadBookmarks, 2000);
   },
 
+  handleEditBookmark: function(bookmark) {
+    this.setState({currentBookmark: bookmark});
+    var modalEditBookmark = $("#modalEditBookmark");
+    modalEditBookmark.find('.modal-title').text('Edit a bookmark');
+    $('#hidBookmarkId').val(bookmark.id);
+    $('#txtBookmarkName').val(bookmark.name);
+    $('#txtBookmarkUrl').val(bookmark.url);
+
+    $('#hidBookmarkCategoryId').val(bookmark.category);
+    //continue!!! for categories
+    // get the cat name from the list -> field
+
+    modalEditBookmark.modal();
+  },
+
+  handleAddBookmark: function() {
+    var modalEditBookmark = $("#modalEditBookmark");
+    modalEditBookmark.find('.modal-title').text('Add a bookmark');
+    $('#txtBookmarkName').val("");
+    $('#txtBookmarkUrl').val("");
+    modalEditBookmark.modal("show");
+  },
+
+  handleSaveBookmark: function() {
+    var modalEditBookmark = $("#modalEditBookmark");
+    modalEditBookmark.modal("hide");
+  },
+
+  handleAddCategory: function() {
+  },
+
   render: function() {
     return (
-        <div>
-          <NavBar />
-          <div className="under-navbar">
-          <Categories categories={this.state.categories} bookmarks={this.state.bookmarks}/>
-          </div>
-          <Footer />
-          <ModalEditBookmark />
+      <div>
+        <NavBar />
+        <div className="under-navbar">
+        <Categories categories={this.state.categories} bookmarks={this.state.bookmarks} onEditBookmark={this.handleEditBookmark}/>
         </div>
-
+        <Footer onAddBookmark={this.handleAddBookmark} onAddCategory={this.handleAddCategory}/>
+        <ModalEditBookmark categories={this.state.categories} onSave={this.handleSaveBookmark}/>
+      </div>
     );
   }
 });

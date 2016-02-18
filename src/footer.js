@@ -12,8 +12,8 @@ var Footer = React.createClass({
           </ul>
 
           <div className="navbar-text navbar-right navbar-right-marged">
-            <a className="btn-sm btn-primary" href="#">Add a category</a>&nbsp;
-            <a className="btn-sm btn-primary" href="" data-toggle="modal" data-target="#modalEditBookmark">Add a bookmark</a>
+            <a className="btn-sm btn-primary" href="#" onClick={this.props.onAddCategory}>Add a category</a>&nbsp;
+            <a className="btn-sm btn-primary" href="#" onClick={this.props.onAddBookmark}>Add a bookmark</a>
           </div>
           
         </div>

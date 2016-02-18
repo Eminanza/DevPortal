@@ -8,20 +8,20 @@ var Categories = React.createClass({
     var categoryPanels = this.props.categories.map(function(category) {
       panelPos++;
       return (
-        <CategoryPanel key={"cat" + category.id} categoryId={category.id} categoryName={category.name} pos={panelPos} bookmarks={this.props.bookmarks}/>
+        <CategoryPanel key={"cat" + category.id} categoryId={category.id} categoryName={category.name} pos={panelPos} bookmarks={this.props.bookmarks} onEditBookmark={this.props.onEditBookmark}/>
       ); 
     }.bind(this)
     );
 
-    var tabs = [];
+    var categoryTabs = [];
     for (var i = 0; i <= this.props.categories.length-1; i++) {
       var tabClassName = (i === 0) ? "active" : "";
-      tabs.push(<li key={ this.props.categories[i].id } role="presentation" className={tabClassName}><a href={ "#panel" + this.props.categories[i].id } aria-controls={ this.props.categories[i].id } role="tab" data-toggle="tab">{ this.props.categories[i].name }</a></li>);
+      categoryTabs.push(<li key={"tab" + this.props.categories[i].id } role="presentation" className={tabClassName}><a href={ "#panel" + this.props.categories[i].id } aria-controls={ this.props.categories[i].id } role="tab" data-toggle="tab">{ this.props.categories[i].name }</a></li>);
     }
     return(
       <div>
         <ul className="nav nav-tabs" role="tablist"> 
-          {tabs}
+          {categoryTabs}
         </ul>
         <div className="tab-content">
           {categoryPanels}

@@ -6,7 +6,7 @@ var Bookmarks = React.createClass({
     //Construct an arraw of rows based on the state of the component
     var bookmarkRows = this.props.bookmarks.map(function(bookmark) {
       return (
-        <Bookmark key={"book" + bookmark.id} name={bookmark.name} url={bookmark.url}/>
+        <Bookmark key={"book" + bookmark.id} id={bookmark.id} name={bookmark.name} url={bookmark.url} onEditBookmark={this.props.onEditBookmark}/>
       );
     }.bind(this)
     );
