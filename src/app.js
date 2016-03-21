@@ -11,27 +11,43 @@ var App = React.createClass({
     return { bookmarks: [], categories: [], currentBookmark: {} };
   },
 
-  loadBookmarks : function() {
+  loadData : function() {
     $.get({
-      url: "http://localhost:5000/bookmarks",
+      //url: "http://localhost:5000/bookmarks",
+      url: "http://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e/",
       success: function(data) {
-        this.setState({bookmarks: data});
+        console.log(data);
+        this.setState({bookmarks: data.bookmarks});
+        this.setState({categories: data.categories});
+
       }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
     });
   },
 
-  loadCategories : function() {
-    $.get({
-      url: "http://localhost:5000/categories",
-      success: function(data) {
-        this.setState({categories: data});
-      }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
-    });
-  },
+  // loadBookmarks : function() {
+  //   $.get({
+  //     //url: "http://localhost:5000/bookmarks",
+  //     url: "http://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e/bookmarks",
+  //     success: function(data) {
+  //       this.setState({bookmarks: data});
+  //     }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
+  //   });
+  // },
+
+  // loadCategories : function() {
+  //   $.get({
+  //     // url: "http://localhost:5000/categories",
+  //     url: "http://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e/categories",
+  //     success: function(data) {
+  //       this.setState({categories: data});
+  //     }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
+  //   });
+  // },
 
   componentDidMount: function() {
-    this.loadBookmarks();
-    this.loadCategories();
+    // this.loadBookmarks();
+    // this.loadCategories();
+    this.loadData();
     // setInterval(this.loadBookmarks, 2000);
   },
 
