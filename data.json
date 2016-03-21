@@ -1,0 +1,38 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Global"
+    },
+    {
+      "id": 1,
+      "name": "Dev"
+    }
+  ],
+  "bookmarks": [
+    {
+      "id": 0,
+      "category": 0,
+      "name": "e-work BNP",
+      "url": "https://e-work.bnpparibasfortis.com/"
+    },
+    {
+      "id": 1,
+      "category": 0,
+      "name": "BNP Web Mail",
+      "url": "https://cas.group.echonet.net.intra/owa/"
+    },
+    {
+      "id": 2,
+      "category": 1,
+      "name": "Test Dev 1",
+      "url": "http://www.google.com"
+    },
+    {
+      "id": 3,
+      "category": 1,
+      "name": "Test Dev 2",
+      "url": "http://www.google.com"
+    }
+  ]
+}
