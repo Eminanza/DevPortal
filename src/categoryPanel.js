@@ -24,7 +24,7 @@ var CategoryPanel = React.createClass({
     var panelClassName = (this.props.pos === 0) ? "tab-pane active" : "tab-pane";
     return(
       <div role="tabpanel" className={panelClassName} id={"panel" + this.props.categoryId}>
-        <Bookmarks bookmarks={categorizedBookmarks} onEditBookmark={this.props.onEditBookmark}/>
+        <Bookmarks key={"books" + this.props.pos} bookmarks={categorizedBookmarks} onEditBookmark={this.props.onEditBookmark} onDeleteBookmark={this.props.onDeleteBookmark}/>
       </div>
     );
   }

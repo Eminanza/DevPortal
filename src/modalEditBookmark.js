@@ -34,7 +34,7 @@ var ModalEditBookmark = React.createClass({
               <br/>
               <div className="input-group">    
                 <span className="input-group-addon" id="sizing-addon2">Category</span>                                        
-                <input className="form-control" type="textbox" id="ddBookmarkCategoryName"></input>
+                <input className="form-control" type="textbox" id="ddBookmarkCategoryName" disabled></input>
                 <input type="hidden" id="hidBookmarkCategoryId"></input>
                 <div className="input-group-btn">
                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -6,7 +6,7 @@ var NavBar = React.createClass({
     return (
         <nav className="navbar navbar-inverse navbar-fixed-top">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#"><span className="brand">DevPortal</span></a>
+            <a className="navbar-brand" href="#"><span className="brand">Portal</span></a>
             <ul className="nav navbar-nav">
               <li className="active">
                 <a href="http://b2e.group.echonet">Home</a>

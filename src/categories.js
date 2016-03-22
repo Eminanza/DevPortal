@@ -8,7 +8,7 @@ var Categories = React.createClass({
     var categoryPanels = this.props.categories.map(function(category) {
       panelPos++;
       return (
-        <CategoryPanel key={"cat" + category.id} categoryId={category.id} categoryName={category.name} pos={panelPos} bookmarks={this.props.bookmarks} onEditBookmark={this.props.onEditBookmark}/>
+        <CategoryPanel key={"cat" + category.id} categoryId={category.id} categoryName={category.name} pos={panelPos} bookmarks={this.props.bookmarks} onEditBookmark={this.props.onEditBookmark} onDeleteBookmark={this.props.onDeleteBookmark}/>
       ); 
     }.bind(this)
     );

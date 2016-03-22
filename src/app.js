@@ -1,9 +1,12 @@
 var React = require('react');
+var update = require('react-addons-update');
+
 var NavBar = require('./navbar.js').NavBar;
 var Footer = require('./footer.js').Footer;
 var Bookmarks = require('./bookmarks.js').Bookmarks;
 var Categories = require('./categories.js').Categories;
 var ModalEditBookmark = require('./modalEditBookmark.js').ModalEditBookmark;
+var ModalEditCategory = require('./modalEditCategory.js').ModalEditCategory;
 
 
 var App = React.createClass({
@@ -13,42 +16,16 @@ var App = React.createClass({
 
   loadData : function() {
     $.get({
-      //url: "http://localhost:5000/bookmarks",
-      url: "http://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e/",
+      url: "https://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e",
       success: function(data) {
-        console.log(data);
-        this.setState({bookmarks: data.bookmarks});
-        this.setState({categories: data.categories});
-
+        this.setState({data: data});
       }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
     });
   },
 
-  // loadBookmarks : function() {
-  //   $.get({
-  //     //url: "http://localhost:5000/bookmarks",
-  //     url: "http://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e/bookmarks",
-  //     success: function(data) {
-  //       this.setState({bookmarks: data});
-  //     }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
-  //   });
-  // },
-
-  // loadCategories : function() {
-  //   $.get({
-  //     // url: "http://localhost:5000/categories",
-  //     url: "http://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e/categories",
-  //     success: function(data) {
-  //       this.setState({categories: data});
-  //     }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
-  //   });
-  // },
-
   componentDidMount: function() {
-    // this.loadBookmarks();
-    // this.loadCategories();
     this.loadData();
-    // setInterval(this.loadBookmarks, 2000);
+    console.log(this.state.data);
   },
 
   handleEditBookmark: function(bookmark) {
@@ -60,26 +37,127 @@ var App = React.createClass({
     $('#txtBookmarkUrl').val(bookmark.url);
 
     $('#hidBookmarkCategoryId').val(bookmark.category);
-    //continue!!! for categories
-    // get the cat name from the list -> field
+
+     var category = this.state.categories.filter(function( category ) {
+       return category.id == bookmark.category;
+     });
+
+     $('#ddBookmarkCategoryName').val(category[0].name);
 
     modalEditBookmark.modal();
+  },
+
+  handleDeleteBookmark: function(bookmark) {
+     $.ajax({
+        type: "DELETE",
+        url: "http://jsonblob.com/api/56efe092e4b01190df56e24e/bookmarks/" + bookmark.id,
+
+        success: function(data) {
+          this.loadData();
+        }.bind(this)
+      });
   },
 
   handleAddBookmark: function() {
     var modalEditBookmark = $("#modalEditBookmark");
     modalEditBookmark.find('.modal-title').text('Add a bookmark');
+    // Empty all fields for save check
+    $('#hidBookmarkId').val("");
     $('#txtBookmarkName').val("");
     $('#txtBookmarkUrl').val("");
+    $('#hidBookmarkCategoryId').val("");
+    $('#ddBookmarkCategoryName').val("");
     modalEditBookmark.modal("show");
   },
 
   handleSaveBookmark: function() {
     var modalEditBookmark = $("#modalEditBookmark");
     modalEditBookmark.modal("hide");
+
+    var id = $('#hidBookmarkId').val();
+    var name = $('#txtBookmarkName').val();
+    var url = $('#txtBookmarkUrl').val();
+    var category = $('#hidBookmarkCategoryId').val();
+
+    var bookmark = {
+      id: id,
+      name: name,
+      url: url,
+      category : category
+    };
+
+  
+    var data = this.state.data;
+    // Checks if new bookmark or not
+    if (bookmark.id)
+    {
+      // Modify an existing one
+      for (var i = data.bookmarks.length - 1; i >= 0; i--) {
+        if (data.bookmarks[i].id === bookmark.id)
+        {
+          data.bookmarks[i] = bookmark;
+        }
+      }
+    }else
+    {
+      // Add a new one
+      // TO DO : check how to add a new id
+      data.bookmarks.push(bookmark);
+    }
+    $.post({   
+      url: "http://jsonblob.com/api/56efe092e4b01190df56e24e",
+      data: bookmark,
+      success: function(data) {
+         this.loadData();
+      }.bind(this)
+    });
+
+  },
+
+  handleSaveCategory: function() {
+    var modalEditCategory = $("#modalEditCategory");
+    modalEditCategory.modal("hide");
+
+    var id = $('#hidCategoryId').val();
+    var name = $('#txtCategoryName').val();
+
+    var category = {
+      id: id,
+      name: name
+    };
+
+    // Checks if new category or not
+    if (category.id) 
+    {
+      // Modify an existing one
+      $.ajax({   
+        type: "PUT",
+        url: "http://jsonblob.com/api/56efe092e4b01190df56e24e/categories/" + category.id,
+        data: category,
+        success: function(data) {
+           this.loadData();
+        }.bind(this)
+      });
+    }else
+    {
+      // Add a new one
+      $.post({ 
+        url: "http://jsonblob.com/api/56efe092e4b01190df56e24e/categories",
+        data: category,
+        success: function(data) {
+           this.loadData();
+        }.bind(this)
+      });    
+    }
   },
 
   handleAddCategory: function() {
+    var modalEditCategory = $("#modalEditCategory");
+    modalEditCategory.find('.modal-title').text('Add a category');
+    // Empty all fields for save check
+    $('#hidCategoryId').val("");
+    $('#txtCategoryName').val("");
+    modalEditCategory.modal("show");
   },
 
   render: function() {
@@ -87,10 +165,11 @@ var App = React.createClass({
       <div>
         <NavBar />
         <div className="under-navbar">
-        <Categories categories={this.state.categories} bookmarks={this.state.bookmarks} onEditBookmark={this.handleEditBookmark}/>
+        <Categories key="cats" categories={this.state.data.categories} bookmarks={this.state.data.bookmarks} onEditBookmark={this.handleEditBookmark} onDeleteBookmark={this.handleDeleteBookmark}/>
         </div>
         <Footer onAddBookmark={this.handleAddBookmark} onAddCategory={this.handleAddCategory}/>
-        <ModalEditBookmark categories={this.state.categories} onSave={this.handleSaveBookmark}/>
+        <ModalEditBookmark categories={this.state.data.categories} onSave={this.handleSaveBookmark}/>
+        <ModalEditCategory  onSave={this.handleSaveCategory}/>
       </div>
     );
   }
