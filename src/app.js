@@ -16,16 +16,18 @@ var App = React.createClass({
 
   loadData : function() {
     $.get({
-      url: "https://jsonblob.com/api/jsonBlob/56efe092e4b01190df56e24e",
+      url: "http://jsonblob.com/api/56efe092e4b01190df56e24e",
       success: function(data) {
         this.setState({data: data});
-      }.bind(this) //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
+      }.bind(this), //bind(this) because this.setState must use the Stocks object (so it recontextes the function(data) that would otherwise run with the jquery context, not Stocks)
+      error: function() {
+        console.log("Error");
+      }
     });
   },
 
   componentDidMount: function() {
     this.loadData();
-    console.log(this.state.data);
   },
 
   handleEditBookmark: function(bookmark) {
@@ -56,6 +58,7 @@ var App = React.createClass({
           this.loadData();
         }.bind(this)
       });
+     var test;
   },
 
   handleAddBookmark: function() {
@@ -74,10 +77,10 @@ var App = React.createClass({
     var modalEditBookmark = $("#modalEditBookmark");
     modalEditBookmark.modal("hide");
 
-    var id = $('#hidBookmarkId').val();
+    var id = Number($('#hidBookmarkId').val());
     var name = $('#txtBookmarkName').val();
     var url = $('#txtBookmarkUrl').val();
-    var category = $('#hidBookmarkCategoryId').val();
+    var category = Number($('#hidBookmarkCategoryId').val());
 
     var bookmark = {
       id: id,
@@ -118,7 +121,7 @@ var App = React.createClass({
     var modalEditCategory = $("#modalEditCategory");
     modalEditCategory.modal("hide");
 
-    var id = $('#hidCategoryId').val();
+    var id = Number($('#hidCategoryId').val());
     var name = $('#txtCategoryName').val();
 
     var category = {
@@ -163,13 +166,7 @@ var App = React.createClass({
   render: function() {
     return (
       <div>
-        <NavBar />
-        <div className="under-navbar">
-        <Categories key="cats" categories={this.state.data.categories} bookmarks={this.state.data.bookmarks} onEditBookmark={this.handleEditBookmark} onDeleteBookmark={this.handleDeleteBookmark}/>
-        </div>
-        <Footer onAddBookmark={this.handleAddBookmark} onAddCategory={this.handleAddCategory}/>
-        <ModalEditBookmark categories={this.state.data.categories} onSave={this.handleSaveBookmark}/>
-        <ModalEditCategory  onSave={this.handleSaveCategory}/>
+
       </div>
     );
   }
